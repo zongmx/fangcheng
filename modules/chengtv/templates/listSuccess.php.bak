@@ -1,0 +1,103 @@
+<section data-role="page" id="privateLetterSend" data-title="方橙-最专业的招商选址大数据平台" class="contain <?php if ($page!=1){echo 'hide';} ?>">
+    <header data-role="header" data-theme="b" class="header ui-header ui-bar-b" role="banner">
+        <a href="/" data-role="button" data-shadow="false" class="nav-icon-home ui-link ui-btn-left ui-btn ui-corner-all" data-ajax="false" role="button">首页</a>
+        <h1 class="ui-title" role="heading" aria-level="1">橙TV：发现未来消费趋势</h1>
+    </header>
+    <div class="nav-bar">
+        <ul class="nav layout">
+            <li id="areanav" class="dropdown-toggle flex" data-nav="city"><span class="nav-tit"><?php echo $cateName;?><i class="caret" style="position:static"></i></span></li>
+            <li id="sortnav" class="dropdown-toggle flex hide" data-nav="sort"><span class="nav-tit">综合排序</span> <i class="caret"></i></li>
+        </ul>
+    </div>
+    <div class="dropdown-wrapper hide"> <!--hide-->
+        <div class="dropdown-module">
+            <div class="scroller-wrapper cl">
+                <div class="dropdown-scroller" id="dropdown_scroller">
+                    <ul>
+                        <li data-nav="city" class="city-wrapper list-wrapper">
+                            <ul id="searchCategory" class="dropdown-list">
+                                <li <?php if ($category_id == 0){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?>data-value="0" >全部业态</li>
+                                <li <?php if ($category_id == 10000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="10000">餐饮</li>
+                                <li <?php if ($category_id == 20000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="20000">购物</li>
+                                <li <?php if ($category_id == 30000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="30000">亲子儿童</li>
+                                <li <?php if ($category_id == 40000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="40000">教育培训</li>
+                                <li <?php if ($category_id == 50000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="50000">休闲娱乐</li>
+                                <li <?php if ($category_id == 60000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="60000">生活服务</li>
+                                <li <?php if ($category_id == 70000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="70000">美妆丽人</li>
+                                <li <?php if ($category_id == 80000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="80000">酒店公寓</li>
+                                <li <?php if ($category_id == 90000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="90000">百货超市</li>
+                                <li <?php if ($category_id == 100000){?> class="active activedisable activedisableone" <?php }else {?> class="activedisable" <?php }?> data-value="100000">其他</li>
+                            </ul>
+                        </li >
+                        <li data-nav="sort" class="sort-wrapper list-wrapper">
+                            <ul id="searchSort" class="dropdown-list">
+                                <li data-value="synthesize" class="active">综合排序</li>
+                                <li data-value="shopsize-desc">体量最大</li>
+                                <li data-value="shopsize-asc">住宅人口最多</li>
+                                <li data-value="mallsize-desc">办公人口最多</li>
+                                <li data-value="residential-desc">差旅人口最多</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="content" class="detail_content ui-content">
+        <section class="detail_section padding-top-10 padding-bottom-10 gray_bg">
+            <div class="btn_box join-tv width80">
+                <a <?php if($brand_pass){?>{brand_pass} <?php }else{ ?> href="/passport/loginjump/jump/{jumpurl}" <?php }?> class="btn add-need-btn ui-link" data-ajax="false"><span class="layout layout-align-center-center">我也要上【橙TV】</span></a>
+            </div>
+        </section>
+        <section class="detail_section">
+            <div class="detail_section_main2">
+                <div class="tv-wrap <?php if (count($list) < 1){echo 'hide';}?>">
+                    <div data-scroll data-scroll-datarender class="tv-item-list">
+
+                    <!-- begin list as k to v -->
+                        <div class="tv-item layout">
+                            <div class="tv-item-img face105">
+                                <img src="{v['chengtv_img_small']}" />
+                                <div class="tv-play" data-tv-url="{v['chengtv_src']}" data-toggle="modal" custom-dialog="#tv-dialog"></div>
+                                <div class="more_mask"></div>
+                            </div>
+                            <div class="tv-item-tit flex">
+                                <h2><a href="/chengtv/view/chengtv_id/{v['chengtv_id']}" data-ajax="false">{v['chengtv_title']}</a> </h2>
+                            </div>
+                        </div>
+                  <!--    end list --> 
+                        <div data-scroll-url="<?php echo $ajax_url;?>" class="hide"></div>
+                </div>
+
+                </div>
+                
+                <div class="detail_noData <?php if (count($list) > 1){echo 'hide';}?>">
+                    <p>当前条件暂无结果，换个业态看看</p>
+                </div>
+                
+            </div>
+        </section>
+        <!-- shade -->
+        <div class="shade hide"></div>
+    </div>
+    <?php __slot('passport','footer');?>
+</section>
+
+<form id="data-form" action="/chengtv/index" method="post" class="hide">
+    <input id="data-category" type="hidden" name="category_id" value="">
+</form>
+<?php if ($page > 1){?>
+    <!-- begin list as k to v -->
+        <div class="tv-item layout">
+            <div class="tv-item-img face105">
+                <img src="{v['chengtv_img_small']}" />
+                <div class="tv-play" data-tv-url="{v['chengtv_src']}" data-toggle="modal" custom-dialog="#tv-dialog"></div>
+                <div class="more_mask"></div>
+            </div>
+            <div class="tv-item-tit flex">
+                <h2><a href="/chengtv/view/chengtv_id/{v['chengtv_id']}" data-ajax="false">{v['chengtv_title']}</a> </h2>
+            </div>
+        </div>
+  <!--    end list --> 
+
+<?php }?>
