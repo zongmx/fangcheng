@@ -20,7 +20,7 @@ class CsAction extends Action
      * @param Application $application
      * @param Request $request
      */
-    public function executeCsinfo(Application $application, Request $request)
+    public function executeShareinfo(Application $application, Request $request)
     {
         $csid = $request->get('csid');
         if (empty($csid)){
@@ -32,14 +32,11 @@ class CsAction extends Action
         $loginstatus =  $cs->getLoginUserType($passport_id,$csid);
         $cyrs = \FC\Cs::getCountCsPassport($csid);
         $kcsq = \FC\Cs::getCountCsPassportApply($csid);
-        $kc = \FC\Cs::getMyApplyCs($csid);
         $this->setLayout("registerLayout");
         $this->cyrs = $cyrs;
         $this->kcsq = $kcsq;
         $this->loginstatus = $loginstatus;
         $this->csinfo = $csInfo;
-        $this->kc = $kc;
-        $this->csid = $csid;
         $this->jumpurl = \Frame\Util\UString::base64_encode(urlFor('', $request->get()));
     }
     

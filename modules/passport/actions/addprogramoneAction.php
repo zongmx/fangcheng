@@ -22,5 +22,8 @@ class PassportAction extends Action
 	    FC\Session::initSession();
 	    $this->setLayout('registerLayout');
 	    $this->jump = Frame\Util\UString::base64_decode($request->get('url'));
+		$status = FC\Passport::initWithSession();
+
+		$this->loginStatus = $status;
 	}
 }

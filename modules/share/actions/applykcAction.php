@@ -1,24 +1,27 @@
 <?php
+
 use Frame\Foundation\Application;
 use Frame\Http\Request;
 use Frame\Foundation\Action;
-use FC\Comm;
-use FC\LoginIn;
-use FC;
+
 
 /**
- * 用户的所有动作行为
+ * 悬赏详情
+ *
  */
-class PassportAction extends Action
+class shareAction extends Action
 {
+    public function preExecute(Application $application, Request $request)
+    {
+    }
 
     /**
-     * 欢迎页面
-     *
+     * 悬赏 --申请参加悬赏
+     * 
      * @param Application $application            
      * @param Request $request            
      */
-    public function executeAddpassport(Application $application, Request $request)
+    public function executeApplykc(Application $application, Request $request)
     {
         $this->setLayout();
         $trim_email = $request->get('passport_email');
@@ -123,8 +126,23 @@ class PassportAction extends Action
             ->query();
         if ($passport_res > 0) {
             $passport = FC\LoginIn::login($passport_mobile, $passport_password);
+            $this->setLayout();
+            $this->setView();
+            FC\Session::initSession();
+            $resutn = FC\Cs::addCsPassportApply($request);
+			$resitn = FC\Cs::addCsPassportApply($request);
+			$resutn = FC\Cs::addCsPassportApply($request);
+			$passport = FC\Cs::initSession();
+			foreach($passport as $key =>$val){
+				$resutn1 = $val['brand_name'];
+				$resutn1 = $val['brand_id'];
+				$resutn1 = $va['passport_id'];
+				$resutn1 = $val['start_time];
+				$resunt1 = $val[''];
+			}
+            return $resutn;
             return [
-            	'result' => 1,
+                'result' => 1,
                 'resultMsg' => '注册成功',
                 'data' => json_encode(
                     ['passport_id' => $passport[0]['passsport_id']]
@@ -132,9 +150,11 @@ class PassportAction extends Action
             ];
         }else {
             return [
-            	'result' => 0,
+                'result' => 0,
                 'resultMsg' => '注册失败'
             ];
         }
     }
+    
+
 }

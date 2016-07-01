@@ -873,7 +873,7 @@ class apiActions extends Frame\Foundation\Action
     	$source = $request->get('source', '1');
     	$min = 15; // 定义失效分钟数
     	$ischeckalone = $request->get('ischeckalone', 0);
-    	if(DIRECTORY_SEPARATOR == '\\' ){   //  如果是windows环境，就是本机测试。
+    	if(DIRECTORY_SEPARATOR == '\\'  || $_SERVER['SERVER_ADDR'] == '192.168.1.134' ){   //  如果是windows环境，就是本机测试。
     	    $code = '1111';
     	    $_SESSION['SMS'][$mobile]['code'] = $code;
     	    $_SESSION['SMS'][$mobile]['expre_time'] = time()+($min*60);
@@ -939,7 +939,7 @@ class apiActions extends Frame\Foundation\Action
         $source = $request->get('source', '1');
         $min = 15; // 定义失效分钟数
         $ischeckalone = $request->get('ischeckalone', 0);
-        if(DIRECTORY_SEPARATOR == '\\' ){   //  如果是windows环境，就是本机测试。
+        if(DIRECTORY_SEPARATOR == '\\' || $_SERVER['SERVER_ADDR'] == '192.168.1.134'){   //  如果是windows环境，就是本机测试。
             $code = '1111';
             $_SESSION['SMS'][$mobile]['code'] = $code;
             $_SESSION['SMS'][$mobile]['expre_time'] = time()+($min*60);

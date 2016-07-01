@@ -201,12 +201,7 @@ class detailsActions extends Frame\Foundation\Action
             'passport_follow_id'
         ];
         $whereArr = [
-            'passport_id' => $_SESSION['userinfo']['passport_id'],
-            'passport_follow_status' => 1,
-            'mall_id' => $mall_id
-        ];
-        $whereArr = [
-            'passprot_id' =>$_SESSION['userinfo']['passport_id'],
+            'passport_id' =>$_SESSION['userinfo']['passport_id'],
             'mall_id' => $mall_id,
             'passport_follow_status' =>1,
         ];

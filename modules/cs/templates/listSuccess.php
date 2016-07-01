@@ -30,15 +30,16 @@
                         	 <div class="flex layout-column margin-left-10 need_item_top_right">
                         	 	<div class="obj-name font-size-16">
                         	 	    <span class="gray333 nowrap" style="width:50%"><?php if($val["demand_type"] == 2 ){?>招商：<?php }else{?>拓展：<?php } ?><?php echo $val['cs_name']; ?></span>
-                        	 	    <div style="position: absolute;top: 15px;right: 10px;">
-                        	 	        <div class="gray999"><span class="cd8992c" style="font-size: 16px;">￥<?php echo $val['money_task']; ?></span><span class="cd8992c font-size-12">/悬赏金</span>
+                        	 	    <div style="position: absolute;top: 15px;right: 10px;text-align:right;">
+                        	 	        <div class="gray999"><span class="cd8992c" style="font-size: 16px;"><?php echo $val['money_task']; ?></span><span class="cd8992c font-size-12">/悬赏金</span>
                                         </div>
-                                        <div class="gray999 honorarium posa" style="right:0">
+                                        <div class="gray999 honorarium" style="text-align:right;">
                                            <?php if (($val['cs']['result'] != 2 || $val['cs']['result'] != 3)) { ?>
 											   <?php if($val['cs']['money_traffic']  > 0 ){ ?>
                                            	<span class="gray333 font-size-12">￥<?php echo $val['cs']['money_traffic'] / 100; ?></span><span class="font-size-12">/车马费</span>
                                            <?php } ?>
 											<?php } ?>
+											
                                         </div>
                         	 	    </div>
                         	 	</div>
@@ -73,8 +74,9 @@
                         	</div>
 
                         </div>
-
+                        <div id="cs_<?php echo $val['demand_id']; ?>" class="hide" weixin-share-detail wxTitle="<?php echo $val['cs_name']; ?>" wxDesc="<?php echo $val['cs_name']; ?>" wxLink="http://m.fangcheng.cn/cs/csinfo/csid/<?php echo $val['demand_id']; ?>'" wxImgUrl="<?php echo $val['logo']; ?>" class="hide"></div>
 					</li>
+					<input type="button" onclick ="WeiXinShareBtn('<?php echo $val['demand_id']; ?>');" value="分享" style="z-index: 9999"/>
                 <?php }?>
 				</ul>
 			     <?php }else{?>
@@ -109,3 +111,9 @@
         </div>
     </div>
 </div>
+<script type='text/javascript'>
+function WeiXinShareBtn(demand_id){
+	var weixinShareDetail = $('#cs_'+demand_id);
+	commonUtilInstance.forwardneed_weixin(weixinShareDetail.attr('wxTitle'),weixinShareDetail.attr('wxDesc'),weixinShareDetail.attr('wxLink'),weixinShareDetail.attr('wxImgUrl'));
+}
+</script>

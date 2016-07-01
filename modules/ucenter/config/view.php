@@ -244,5 +244,15 @@ return [
 			'widget/otherBrandPlug.js',
 			'tmpl.js'
         ]
-    ]
+    ],
+	'altpwdSuccess' => [
+		'stylesheets' => [
+			'form.css',
+		],
+		'javascripts' => [
+			'ucenter/ucenter.js',
+			'vendors/jquery.validate.min.js',
+		]
+	],
+
 ];

@@ -58,9 +58,6 @@
 						if ($result[0]['csInfo']['cs']['status'] == 1 && $result[0]['csInfo']['cs']['result'] == 1) {
 							?>
 							<img src="/img/bookmarkgold.png" class="posa" style="width:68px;top:0;right:0;">
-							<?php if($result[0]['csInfo']['cs']['expire_at'] > strtotime('-1 day')){?>
-								<img src="/img/bookmarkgold.png" class="posa" style="border-left: dashed;width: 68px;top: 0;right: 0;">
-							<?php }?>
 							<div class="posa" style="bottom:10px;right:10px;">
 								<img src="/img/share.png" alt="" width="14" height="12" style="vertical-align: middle;"> <span class="orange font-size-12">推荐</span>
 							</div>
@@ -74,10 +71,7 @@
 					}else{
 						?>
 						<img src="/img/bookmarkgrey2.png" class="posa" style="width:68px;top:0;right:0;">
-						<?php if($result[0]['demand_type'] == 2){?>
-						<img src="/img/bookmarkgrey2.png" class="posa" style="width: 68px;top: 0;left: 0;">
-						<?php } ?>
-						<?php } ?>
+					<?php } ?>
 					<?php
 				}
 				?>
@@ -86,8 +80,8 @@
 			<div class="bgfff csway">
 				<nav class="tabs bgff">
 					<ul class="tab-list">
-						<li class="current" >我的申请</li>
-						<li>我的推荐</li>
+						<li class="current" >我申请的</li>
+						<li>我分享的</li>
 					</ul>
 					<div class="shadow"></div>
 				</nav>
@@ -100,30 +94,32 @@
 					} else if (!empty($val['brand_id'])) {
 						$url = "href=\"/details/brand/brand_id/{$j['brand_id']}\"";
 					}
-				var_dump($j);
 					?>
+					<div class="" style="border-bottom:1px solid #e4e4e4;padding: 20px 10px 10px;">
 					<div style="border-bottom:1px solid #e4e4e4;padding: 20px 10px 10px;">
 						<div class="offer_detail_top_info cl layout">
 							<div class="face40">
 								<a href="javascript:void(0)" class="detail_offer_face ui-link"><img
-										src="<?php echo  $j['demand_picture'];?>" onerror="this.src='/img/detail/logo_big.png'"
+										src="<?php echo  $val['demand_picture'];?>" onerror="this.src='/img/detail/logo_big.png'"
 										width="80" height="80"></a>
 							</div>
 							<div class="flex info layout-column margin-left-10">
-								<p class="posr" style="margin:0;"><a style="display:inline-block;width:65%;"  class="ui-link"><span
+								<p class="posr" style="margin:0;"><a style="display:inline-block;width:65%;"
+																	 class="ui-link"><span
 											class="gray333"></span></a><span class="state"
 																						  style="position: absolute;text-align: center;">待处理</span>
 								</p>
-								<p style="margin:0;" class="font-size-12 gray999"><?php echo  $j['cs']['money_task'];?></p>
+								<p style="margin:0;" class="font-size-12 gray999"><?php echo  $val['cs']['money_task'];?></p>
 							</div>
 						</div>
 						<div class="info gray999">
 							<p style="margin:10px 0 0;" class="font-size-12">预约看场：<span
-									class="gray333"><?php echo substr($j['cs_passportInfo']['cs_passport_apply_ctime'], 0, 10);?></span></p>
+									class="gray333"><?php echo substr($val['cs_passportInfo']['cs_passport_ctime'], 0, 10);?></span></p>
+							<?php echo  $val['cs']['demand_utime'];?>
 							<div class="flex layout layout-align-start-center font-size-12 posr">
-								<span><p style="margin:0;">联系人：<span class="gray333"><?php echo  $j['demand_contacts'];?></span></p></span>&nbsp;&nbsp;
+								<span><p style="margin:0;">联系人：<span class="gray333"><?php echo  $val['demand_contacts'];?></span></p></span>&nbsp;&nbsp;
 								<p class="nowrap2 font-size-12" style="margin:0;position: absolute;top:0;right:0;">申请时间：<span
-										class="gray333"><?php echo $j['cs']['cs_passport_apply_agree_at']; ?></span></p>
+										class="gray333"><?php echo $val['cs']['cs_passport_ctime']; ?><?php echo $val['demand_ctime'];?></span></p>
 							</div>
 						</div>
 					</div>
@@ -147,12 +143,14 @@
 	<?php } ?>
 	<div data-role="footer" class="ui-footer ui-bar-inherit" style="height:60px;opacity:1 !important;background:#fff;position: fixed;bottom:0;left:0;width:100%;z-index:100;" role="contentinfo">
         <div class="btn_box font-size-14 detail-container" style="height:40px;line-height:40px;margin-top:10px">
-            <a href="javascript:;" onclick='WeiXinShareBtn();' class="fl btn btn_default text-center  ui-link" style="display:inline-block;width:48%;box-sizing:border-box;">推荐</a>
+            <a href="javascript:;" class="fl btn btn_default text-center  ui-link" style="display:inline-block;width:48%;box-sizing:border-box;">分享</a>
             <a id="apply" class="btn btn_full_able text-center fr ui-link" style="display:inline-block;width:48%;box-sizing:border-box;">立即申请</a>
         </div>
     </div>
 </div>
+</body>
 	<script type="text/javascript">
+	 commonUtilInstance.tab('.tab-list','.csway','current');
 		$(function(){
 
 			$('.offer_detail_top>.offer_btn>.btn_default:eq(0)').after(imgPic);
@@ -177,9 +175,4 @@
 		})
 	</script>
 </div>
-<script type="text/javascript">
 
-function WeiXinShareBtn(){
-	commonUtilInstance.forwardneed_weixin('<?php echo $result[0]['demandInfo']['cs_name'];?>','','<?php echo C('WEB_URL')."/cs/csinfo/csid/".$result[0]['demandInfo']['demand_id']?>','<?php echo C('WEB_URL').$result[0]['demandInfo']['logo']?>');
-}
-</script>

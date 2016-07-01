@@ -139,7 +139,7 @@
                     </div>
                     <div class="user_info_header_right margin-left-10">
                         <div class="layout">
-                            <span class="message_header_tit grayfff font-size-13"><?php echo $userinfo['passport_name'];?></span
+                            <span class="message_header_tit grayfff font-size-13"><?php echo $userinfo['passport_name'];?></span>
                            <?php if ($userinfo['passport_status'] == 2){?>
                             <i class="icon_btn"></i>
                             <?php }else {?>

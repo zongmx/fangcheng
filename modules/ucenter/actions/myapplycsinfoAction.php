@@ -28,19 +28,19 @@ class UcenterAction extends Action
         if(empty($csid)){
             $this->headerTo('404');
         }
-        $demand_type = 1;
-        /*$result = \FC\Cs::getMyApplyCs($demand_type);
-        $demand_type = 2;
-        $result1 = \FC\Cs::getMyApplyCs($demand_type);*/
-        $result = \FC\Cs::getAllApplyCs();
+//        $demand_type = 1;
+//        $result = \FC\Cs::getMyApplyCs($demand_type);
+//        $demand_type = 2;
+//        $result1 = \FC\Cs::getMyApplyCs($demand_type);
+//        $result = \FC\Cs::getAllApplyCs();
         $cs = new FC\Cs($csid);
         $result = $cs->getInfo(true);
-//        var_dump($result);
+//        var_dump($result[0]);
 //        exit();
        // var_dump($result);
         \FC\Session::initSession();
 //        $result = array_merge($result1,$result);
-        foreach ($result as $key => $val){
+        //foreach ($result[0] as $key => $val){
 //            var_dump($val);
 //            exit();
             $cs = new \FC\Cs($csid);
@@ -54,19 +54,19 @@ class UcenterAction extends Action
                 $passportStatus = '未登录';
             }
             $passportInfo['passport_picture'];
-            $result[$key]['demandInfo'] = $demandInfo['return'];
-            $result[$key]['csInfo'] = $demandInfo[0];
+            $result[0]['demandInfo'] = $demandInfo['return'];
+            $result[0]['csInfo'] = $demandInfo[0];
             if (!empty($demandInfo[0]['brand_id'])){
                 $link = '/details/brand/brand_id/'.$demandInfo[0]['brand_id'];
             }elseif (!empty($demandInfo[0]['mall_id'])){
                 $link = '/details/mall/mall_id/'.$demandInfo[0]['mall_id'];
             }
-            $result[$key]['link'] = $link;
-            $result[$key]['passportInfo'] = $passportInfo['resuleMsg'];
-            $result[$key]['cs_passportInfo'] = FC\Cs::getPassportCSinfo($csid,$_SESSION['userinfo']['passport_id'])[0];
-            $result[$key]['cs_passport_id'] = $passportInfo['passport_id'];
+            $result[0]['link'] = $link;
+            $result[0]['passportInfo'] = $passportInfo['resuleMsg'];
+            $result[0]['cs_passportInfo'] = FC\Cs::getPassportCSinfo($csid,$_SESSION['userinfo']['passport_id'])[0];
+            $result[0]['cs_passport_id'] = $passportInfo['passport_id'];
             # 个人信息
-            $result[$key]['cs_passport_type'] = $passportInfo['passport_picture'];
+            $result[0]['cs_passport_type'] = $passportInfo['passport_picture'];
 
             $applyinfo = $cs->getPassportList();
             if (!empty($applyinfo)){
@@ -128,15 +128,15 @@ class UcenterAction extends Action
                 unset($zhuangtai);
             }
             //$result[$key]["cs_passport_apply_agree_at"] = str_replace("00:00:00","",$result[$key]["cs_passport_apply_agree_at"]);
-            $result[$key]['apply'] = $applyinfo;
+            $result[0]['apply'] = $applyinfo;
             }
             unset($cs);
             unset($demandInfo);
             unset($passportInfo);
             unset($applyinfo);
-        }
-//        var_dump($result);
-//        exit();
+        //}
+       // var_dump($result);
+       // exit();
 //        exit();
         $this->result = $result;
         $this->demand_type = $demand_type;

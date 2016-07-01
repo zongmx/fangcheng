@@ -38,7 +38,7 @@
             </div>
             <div class="modal-body formwrapper">
                 <form id="payform" action="/demand/applykc/">
-                    <input id="payform-demand_id" type="hidden" name="demand_id" value=""/>
+                    <input id="payform-demand_id" type="hidden" name="demand_id" value="<?php echo  $demand_id;?>"/>
                     <div id="lookdateitem" class="form-item" validate-item="look-date">
                         <div class="form-input-wrapper layout layout-align-start-center ui-field-contain">
                             <label class="text-label text-label-imgCode">看场日期：</label>
@@ -163,6 +163,7 @@
                 </div>
             </div>
             <script type="text/javascript">
+                var kc = <?php echo  $kc;?>
                 $('#payform').validate();
                 function dopay() {
                     if($('#payform').doValidate()) {
