@@ -22,9 +22,8 @@
 							<div class="gray999 honorarium posa" style="right:0">
 							</div>
 						</div>
-
 						<div class="obj_info_msg font-size-12">
-							<span class="gray999">招商城市：<?php echo $result[0]['demandInfo']['category_str']; ?></span>
+							<span class="gray999">招商城市：<?php echo $result[0]['demandInfo']['cs_passport_city']; ?></span>
 						</div>
 					</div>
 				</div>
@@ -74,20 +73,17 @@
 					}else{
 						?>
 						<img src="/img/bookmarkgrey2.png" class="posa" style="width:68px;top:0;right:0;">
-						<?php if($result[0]['demand_type'] == 2){?>
-						<img src="/img/bookmarkgrey2.png" class="posa" style="width: 68px;top: 0;left: 0;">
-						<?php } ?>
 						<?php } ?>
 					<?php
 				}
 				?>
 			</div>
 
-			<div class="bgfff csway">
+			<div class="bgfff csway" style="margin-bottom:60px;">
 				<nav class="tabs bgff">
 					<ul class="tab-list">
 						<li class="current" >我的申请</li>
-						<li>我的推荐</li>
+						<li>我的分享</li>
 					</ul>
 					<div class="shadow"></div>
 				</nav>
@@ -100,30 +96,27 @@
 					} else if (!empty($val['brand_id'])) {
 						$url = "href=\"/details/brand/brand_id/{$j['brand_id']}\"";
 					}
-				var_dump($j);
+				//var_dump($j);
 					?>
 					<div style="border-bottom:1px solid #e4e4e4;padding: 20px 10px 10px;">
 						<div class="offer_detail_top_info cl layout">
 							<div class="face40">
-								<a href="javascript:void(0)" class="detail_offer_face ui-link"><img
-										src="<?php echo  $j['demand_picture'];?>" onerror="this.src='/img/detail/logo_big.png'"
-										width="80" height="80"></a>
+								<a href="javascript:void(0)" class="detail_offer_face ui-link"><img src="<?php echo  $j['logo'];?>" onerror="this.src='/img/detail/logo_big.png'"
+																									width="80" height="80"></a>
 							</div>
 							<div class="flex info layout-column margin-left-10">
 								<p class="posr" style="margin:0;"><a style="display:inline-block;width:65%;"  class="ui-link"><span
-											class="gray333"></span></a><span class="state"
-																						  style="position: absolute;text-align: center;">待处理</span>
+											class="gray333"><?php if(!empty($j['brand_name'])){ echo $j['brand_name']; }elseif(!empty($j['mall_name'])){ echo $j['mall_name'];}?></span></a><span class="state"  style="position: absolute;text-align: center;"><?php echo $j['zhuangtai'];?></span>
 								</p>
-								<p style="margin:0;" class="font-size-12 gray999"><?php echo  $j['cs']['money_task'];?></p>
+								<p style="margin:0;" class="font-size-12 gray999">所在城市：<?php if(!empty($j['area_name'])){ echo $j['area_name'];}?></p>
 							</div>
 						</div>
 						<div class="info gray999">
-							<p style="margin:10px 0 0;" class="font-size-12">预约看场：<span
-									class="gray333"><?php echo substr($j['cs_passportInfo']['cs_passport_apply_ctime'], 0, 10);?></span></p>
+							<p style="margin:10px 0 0;" class="font-size-12">预约看场：<span class="gray333"><?php echo substr($j['cs_passport_apply_ctime'], 0, 10);?></span></p>
 							<div class="flex layout layout-align-start-center font-size-12 posr">
-								<span><p style="margin:0;">联系人：<span class="gray333"><?php echo  $j['demand_contacts'];?></span></p></span>&nbsp;&nbsp;
+								<span><p style="margin:0;">联系人：<span class="gray333"><?php echo  $j['u_name'][0];?></span></p></span>&nbsp;&nbsp;
 								<p class="nowrap2 font-size-12" style="margin:0;position: absolute;top:0;right:0;">申请时间：<span
-										class="gray333"><?php echo $j['cs']['cs_passport_apply_agree_at']; ?></span></p>
+										class="gray333"><?php echo $j['cs_passport_apply_agree_at']; ?></span></p>
 							</div>
 						</div>
 					</div>
@@ -132,11 +125,18 @@
 				?>
 					<?php
 				}
-				?>
+				else{?>
+                  		<div class="bgfff" style="border:1px solid #e4e4e4;border-top: none;padding: 20px;">
+                  		<p style="margin: 0;text-align: center;font-size: 14px;color: #999;">目前还没有申请的悬赏，点击查看<a href="/cs/list" style="color:#efbd59 !important;text-decoration: underline;" class="ui-link">更多悬赏</a></p>
+                  		</div>
+                  		<?php }?>
 				</div>
 				<!--我分享的-->
 				<div class="mycontain hide1">
-					分享的
+				    <!--我的分享没有信息时-->
+					<div class="bgfff" style="border:1px solid #e4e4e4;border-top: none;padding: 20px;">
+                        <p style="margin: 0;text-align: center;font-size: 14px;color: #999;">目前还没有分享的悬赏，点击查看<a href="/cs/list" style="color:#efbd59 !important;text-decoration: underline;" class="ui-link">更多悬赏</a></p>
+                    </div>
 				</div>
 				<!-- 没有数据 start -->
 
@@ -148,7 +148,7 @@
 	<div data-role="footer" class="ui-footer ui-bar-inherit" style="height:60px;opacity:1 !important;background:#fff;position: fixed;bottom:0;left:0;width:100%;z-index:100;" role="contentinfo">
         <div class="btn_box font-size-14 detail-container" style="height:40px;line-height:40px;margin-top:10px">
             <a href="javascript:;" onclick='WeiXinShareBtn();' class="fl btn btn_default text-center  ui-link" style="display:inline-block;width:48%;box-sizing:border-box;">推荐</a>
-            <a id="apply" class="btn btn_full_able text-center fr ui-link" style="display:inline-block;width:48%;box-sizing:border-box;">立即申请</a>
+            <a id="apply" href="/cs/csinvite/demand_type/<?php echo $result[0]['demand_type'];?>/demand_id/<?php echo $result[0]['_id'];?>" class="btn btn_full_able text-center fr ui-link" style="display:inline-block;width:48%;box-sizing:border-box;">立即申请</a>
         </div>
     </div>
 </div>

@@ -4,15 +4,15 @@
         <h1>登录方橙</h1>
     </header>
     <section class="detail_content" data-role="content" role="main">
-        <nav class="tabs margin-bottom-20 bgff">
+        <nav class="tabs margin-bottom-10 bgff">
             <ul class="tab-list">
-            	<li>账号密码登录</li>
-            	<li class="current">短信快捷登录</li>
+            	<li class="current">账号密码登录</li>
+            	<li>短信快捷登录</li>
             </ul>
             <div class="shadow"></div>
         </nav>
 
-        <div class="detail_main formwrapper loginwrapper hide1" style="height:87%;">
+        <div class="detail_main formwrapper loginwrapper" style="height:87%;">
             <form id="loginForm" role="form" action="/passport/loginjump" method="post">
                 <input type="password" class="hide"/>
                 <input id="jump" type="hidden" name="jump" value="<?php  echo \Frame\Util\UString::base64_decode($jump);?>">
@@ -52,7 +52,7 @@
                 <a href="/passport/checklogin/jump/<?php echo $jump;?>" class="btn btn_default layout layout-align-center-center">立即注册</a>
             </div>
         </div>
-        <div class="detail_main formwrapper messageLogin " style="height:84%;">
+        <div class="detail_main formwrapper messageLogin  hide1" style="height:84%;">
             <form id="loginForm1" role="form" action="/passport/fastloginjump" method="post">
                         <div id="mobile" for="input" validate-item="mobile" class="form-item margin-top-10">
                             <div validate-ok="mobile" class="form-input-wrapper layout layout-align-start-center ui-field-contain" style="height:42px;">
@@ -129,20 +129,7 @@ $('input[validate-field="mobile"]').keyup(function(){
             commonUtilInstance.submitSignup('#loginForm1',$('#jump').val());
         }
     });
-    tab(".tab-list",".detail_content","current");
-
-function tab(arg1,arg2,current){
-	$(arg1).children("li").click(function(){
-		if($(this).hasClass(current)){
-			return false;
-		}
-		var _index = $(this).index();
-		$(this).addClass(current).siblings("li").removeClass(current);
-		$(arg2).children("div").eq(_index).show().siblings("div").hide();
-	});
-}
-
-
+    commonUtilInstance.tab(".tab-list",".detail_content","current");
     var InterValObj1; //timer变量，控制时间
     var curCount1 = 30; //当前剩余秒数
 

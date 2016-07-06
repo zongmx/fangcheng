@@ -53,6 +53,7 @@ class UcenterAction extends Action
 	    
 	}
 	public function myaccountlog(Application $application, Request $request){
+	    
 	    FC\Session::initSession();
 	    $this->setView('myaccountlog');
 	    $passportMoneyLog = \FC\Cs::getPassportMoneyLog();

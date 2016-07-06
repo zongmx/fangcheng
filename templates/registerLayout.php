@@ -12,6 +12,7 @@
     <?php __js() ?>
 </head>
 <body>
+<?php __slot('passport','weixinconfig');?>
 {jfContent}
 </body>
 </html>

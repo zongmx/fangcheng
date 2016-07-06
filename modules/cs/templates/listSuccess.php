@@ -74,9 +74,7 @@
                         	</div>
 
                         </div>
-                        <div id="cs_<?php echo $val['demand_id']; ?>" class="hide" weixin-share-detail wxTitle="<?php echo $val['cs_name']; ?>" wxDesc="<?php echo $val['cs_name']; ?>" wxLink="http://m.fangcheng.cn/cs/csinfo/csid/<?php echo $val['demand_id']; ?>'" wxImgUrl="<?php echo $val['logo']; ?>" class="hide"></div>
 					</li>
-					<input type="button" onclick ="WeiXinShareBtn('<?php echo $val['demand_id']; ?>');" value="分享" style="z-index: 9999"/>
                 <?php }?>
 				</ul>
 			     <?php }else{?>
@@ -111,9 +109,3 @@
         </div>
     </div>
 </div>
-<script type='text/javascript'>
-function WeiXinShareBtn(demand_id){
-	var weixinShareDetail = $('#cs_'+demand_id);
-	commonUtilInstance.forwardneed_weixin(weixinShareDetail.attr('wxTitle'),weixinShareDetail.attr('wxDesc'),weixinShareDetail.attr('wxLink'),weixinShareDetail.attr('wxImgUrl'));
-}
-</script>

@@ -73,6 +73,7 @@
                                        })
                                    </script>
                             </div>
+                                <?php if($demand_type == 1){ ?>
                            <div class="form-item" validate-item="malladdress">
                               <div validate-ok="malladdress" class="form-input-wrapper layout layout-align-start-center ui-field-contain">
                                   <div class="text-input flex flex100">
@@ -82,6 +83,7 @@
                               <div validate-msg="malladdress" class="hide tip">
                               </div>
                             </div>
+                                <?php } ?>
                             <div class="form-item flex flex100 width100 cl">
                                 <div class="flex margin-right-10 fl" validate-item="person">
                                     <div>

@@ -115,7 +115,7 @@
             	<?php }else{?>
         		 <!--从新增负责的项目点进去进入的页面按钮为‘保存新增项目’-->
                 <div class="layout layout-align-start-center margin-top-10">
-                	<div class="flex btn_box">
+                	<div class="flex btn_box font-size-16" style="padding: 0 10px;">
                 		<input type="button" custom-dialog="#detail_save" data-role="none"
                 			class="btn" value="保存新增项目" id="btnSubmit">
                 	</div>

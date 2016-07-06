@@ -58,7 +58,7 @@ class apiActions extends Frame\Foundation\Action
                 foreach ($result['info'] as $key => $val){
                 	$return[$key]['name'] = $result['info'][$key]['mall_name'];
                 	$return[$key]['tip'] =  '';
-                	$return[$key]['imgSrc'] = getLogoimage(['mall_id'=> $result['info'][$key]['mall_id']],'48x48');
+                        $return[$key]['imgSrc'] = getLogoimage(['mall_id'=> $result['info'][$key]['mall_id']],'48x48');
                 	$return[$key]['value'] = $result['info'][$key]['mall_id'];
                 	$mname = FC\GetValue::getInfoList('fangcheng_v2', 'area', $result['info'][$key]['area_id'], 1);
                 	if ($mname['result'] == 1){

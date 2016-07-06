@@ -33,6 +33,7 @@ class csAction extends Frame\Foundation\Action
         var_dump($csInfo);
         exit();*/
        foreach ($csInfo as $key => $val){
+           $id_arr = [];
            if(($val["cs"]["status"] == 1) && $val['cs']['result'] == 1 && $val['cs']['expire_at'] >= date('Y-m-d')){
                $csInfo1[$key] = $csInfo[$key];
                

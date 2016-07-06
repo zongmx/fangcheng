@@ -71,9 +71,20 @@ return [
 	'shareindexSuccess' =>[
 		'javascripts' =>[
 			'vendors/laydate/laydate.js',
-			'util/common.js',
+			'vendors/jquery.ui.widget.js',
+			'util/constant.js',
+			'widget/MWidget.js',
 			'widget/listPlug.js',
-			'widget/validate.form.js',
+            'widget/categoryPlug.js',
+            'widget/customScrollPlug.js',
+            'widget/otherBrandPlug.js',
+            'widget/cityPlug.js',
+            'widget/validate.form.js',
+            'ucenter/brandEdit.js',
+            'signup/fastsign.js',
+
+             'tmpl.js'
 		]
+
 	],
 ];

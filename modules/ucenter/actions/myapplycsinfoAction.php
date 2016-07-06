@@ -68,10 +68,32 @@ class UcenterAction extends Action
             # 个人信息
             $result[0]['cs_passport_type'] = $passportInfo['passport_picture'];
 
+        if (!empty($demandInfo[0]['mall_id'])){
+
+            $url = C('SERVICE_IP').'/info/mall/id/' . $demandInfo[0]['mall_id'];
+            $basicTag = file_get_contents($url);
+            $basicTag = json_decode($basicTag, true);
+            if($basicTag['result'] == true){
+                ! empty($mall_area) && ($area_name = $mall_area['resuleMsg']['area_name']);
+            }else{
+                $area_name = '';
+            }
+        }elseif( !empty($demandInfo[0]['brand_id'])){
+            $url = C("SERVICE_IP").'/info/brand/tag/id/'.$demandInfo[0]['brand_id'];
+            $basicTag = file_get_contents($url);
+            $basicResult = json_decode($basicTag,true);
+            if($basicResult['result'] == true){
+                $area_name = $basicResult['info']['group_33'][0];
+            }else{
+                $area_name = '';
+            }
+        }
+            $result[0]['cs_passport_city'] = $area_name;
             $applyinfo = $cs->getPassportList();
-            if (!empty($applyinfo)){
+        if (!empty($applyinfo)){
             foreach ($applyinfo as $h => $i){
                 $cont = \FC\Cs::getContact($i['cs_passport_apply_id']);
+               // var_dump($cont);exit();
                 //联系人
                 foreach ($cont as $k => $v){
                     $applyinfo[$h]['u_name'][] = $v['cs_passport_apply_contact_name'];
@@ -92,13 +114,11 @@ class UcenterAction extends Action
                     $basicTag = file_get_contents($url);
                     $basicTag = json_decode($basicTag, true);
                     if($basicTag['result'] == true){
-                        ! empty($basicTag['info']['area_id']) && ($mall_area = FC\GetValue::getinfo("fangcheng_v2", 'area', $basicTag['info']['area_id']));
-                        ! empty($basicTag['info']['area_id']) && ($mall_area = FC\GetValue::getinfo('fangcheng_v2', 'area', $basicTag['info']['area_id']));
-                        ! empty($basicTag['info']['area_id']) && ($mall_area = FC\GetValue::getinfo('fangcheng_v2','brand',$basicTag['info']['area_id']));
                         ! empty($mall_area) && ($area_name = $mall_area['resuleMsg']['area_name']);
                     }else{
                         $area_name = '';
                     }
+                    $id_arr['mall_id'] = $i['mall_id'];
                 }elseif( !empty($i['brand_id'])){
                     $url = C("SERVICE_IP").'/info/brand/tag/id/'.$i['brand_id'];
                     $basicTag = file_get_contents($url);
@@ -108,23 +128,16 @@ class UcenterAction extends Action
                     }else{
                         $area_name = '';
                     }
+                    $id_arr['brand_id'] = $i['brand_id'];
                 }
-//                var_dump($area_name);echo "<hr>";
+                $applyinfo[$h]['logo'] = getLogoimage($id_arr,'48x48');
                 $applyinfo[$h]['zhuangtai'] = $zhuangtai;
                 $applyinfo[$h]['area_name'] = $area_name;
+                $applyinfo[$h]['contacts'] = $cont;
                 $applyinfo[$h]['cs_passport_apply_agree_at'] = str_replace("00:00:00",'',$applyinfo[$h]['cs_passport_apply_agree_at']);
                 $applyinfo[$h]['cs_passport_brand_name'] = $basicTag['result']['brand_name'];
                 $applyinfo[$h]['cs_passport_brand_id'] = $basicTag['result']['brand_id'];
-                $url = C("SERVICE_IP").'/info/brand/tag/id/'.$i['brand_id'];
-                $basicTag = file_get_contents($url);
-                $basicResult = json_decode($basicTag,true);
-                if($basicResult['result'] == true){
-                    $area_name = $basicResult['info']['group_33'][0];
-                }else{
-                    $area_name = '';
-                }
-                $applyinfo[$h]['area_name'] = $basicResult['info']['tag'];
-                $url = C("SERVICE_IP").'info/mall/id' .$i['mall_id'];
+                //$applyinfo[$h]['cs_passport_apply_ctime'] = $basicTag['result']['passport_apply_time'];
                 unset($zhuangtai);
             }
             //$result[$key]["cs_passport_apply_agree_at"] = str_replace("00:00:00","",$result[$key]["cs_passport_apply_agree_at"]);
@@ -135,8 +148,7 @@ class UcenterAction extends Action
             unset($passportInfo);
             unset($applyinfo);
         //}
-       // var_dump($result);
-       // exit();
+
 //        exit();
         $this->result = $result;
         $this->demand_type = $demand_type;
